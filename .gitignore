@@ -1,0 +1,9 @@
+.gradle
+gradlew.bat
+build
+.idea
+out
+node_modules
+.DS_Store
+
+

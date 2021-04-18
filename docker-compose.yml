@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+
+  server:
+    build: server
+    environment:
+      ENV_NAME: docker
+    depends_on:
+      - activeMq
+      - redis
+
+  activeMq:
+    image: rmohr/activemq:5.15.4
+    ports:
+      - 61616:61616
+      - 8161:8161
+      - 5672:5672
+    environment:
+      ACTIVEMQ_USERS_server: server
+      ACTIVEMQ_USERS_client: client
+    volumes:
+      - .data/activemq/conf:/opt/activemq/conf
+      - .data/activemq/data:/opt/activemq/data
+
+  redis:
+    image: redis:6.2
+    ports:
+      - 6379:6379
+

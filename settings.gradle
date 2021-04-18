@@ -1,0 +1,5 @@
+rootProject.name = 'UrlShortner'
+include  'client'
+include  'server'
+include 'model'
+
