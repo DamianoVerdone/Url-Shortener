@@ -7,6 +7,9 @@ import java.util.Optional;
 
 import static net.traslated.util.Constants.USER_CONTRIBUTION;
 
+/**
+ * Takes a userId and return the number of urls successful inserted by the user
+ */
 public class StatsForUserOperation implements Operation<StatsForUserCommand>{
 
     private final RedisManager redisManager;

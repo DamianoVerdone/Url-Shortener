@@ -26,7 +26,7 @@ public class ListenersPool {
 
     public ListenersPool(ActiveMQConnectionUtils activeMQConnectionUtils,
                          Protocol protocol,
-                         ConfigDto config) throws Exception {
+                         ConfigDto config) throws JMSException, InterruptedException {
         this.config = config;
         this.executorService = Executors.newFixedThreadPool(config.getConnectionNumber() * config.getThreadForConnection());
         this.protocol = protocol;

@@ -10,6 +10,12 @@ public class ConfigDto {
     private final String topicName;
     private final String queueName;
 
+    public ConfigDto(String activemqUrl, String topicName, String queueName) {
+        this.activemqUrl = activemqUrl;
+        this.topicName = topicName;
+        this.queueName = queueName;
+    }
+
     public ConfigDto() {
         ResourceBundle config = ResourceBundle.getBundle("config");
         activemqUrl = config.getString(ACTITVEMQ_URL);

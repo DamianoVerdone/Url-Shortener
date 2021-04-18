@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>net.traslated.operation</OriginalElement>
+  <nodes>
+    <node x="327.75" y="-55.0">net.traslated.util.GenerateShortUrlId</node>
+    <node x="-20.0" y="-395.0">net.traslated.activemq.CommandListener</node>
+    <node x="347.0" y="-375.0">net.traslated.operation.InsertOperation</node>
+    <node x="808.0" y="-375.0">net.traslated.operation.StatsForUrlOperation</node>
+    <node x="1053.0" y="-375.0">net.traslated.operation.QueryOperation</node>
+    <node x="549.0" y="-375.0">net.traslated.operation.StatsForUserOperation</node>
+    <node x="697.75" y="-580.0">net.traslated.operation.Operation</node>
+    <node x="130.0" y="-585.0">net.traslated.operation.Protocol</node>
+    <node x="87.0" y="-170.0">net.traslated.activemq.ListenersPool</node>
+    <node x="700.25" y="-55.0">net.traslated.redis.RedisManager</node>
+    <node x="26.0" y="-45.0">net.traslated.activemq.ActiveMQConnectionUtils</node>
+    <node x="697.0" y="115.0">net.traslated.redis.RedisManagerFactory</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="net.traslated.operation.InsertOperation" target="net.traslated.operation.Operation" relationship="REALIZATION">
+      <point x="-21.5" y="-15.0" />
+      <point x="411.5" y="-485.0" />
+      <point x="831.0833333333333" y="-485.0" />
+      <point x="53.333333333333314" y="15.0" />
+    </edge>
+    <edge source="net.traslated.operation.InsertOperation" target="net.traslated.redis.RedisManager" relationship="DEPENDENCY">
+      <point x="15.0" y="15.0" />
+      <point x="448.0" y="-282.5" />
+      <point x="755.5" y="-282.5" />
+      <point x="-25.25" y="-15.0" />
+    </edge>
+    <edge source="net.traslated.activemq.CommandListener" target="net.traslated.operation.Protocol" relationship="DEPENDENCY">
+      <point x="73.0" y="-15.0" />
+      <point x="-40.0" y="15.0" />
+    </edge>
+    <edge source="net.traslated.operation.QueryOperation" target="net.traslated.redis.RedisManager" relationship="TO_ONE">
+      <point x="0.0" y="15.0" />
+      <point x="1140.0" y="-207.5" />
+      <point x="845.75" y="-207.5" />
+      <point x="65.0" y="-15.0" />
+    </edge>
+    <edge source="net.traslated.operation.StatsForUserOperation" target="net.traslated.redis.RedisManager" relationship="DEPENDENCY">
+      <point x="107.0" y="15.0" />
+      <point x="-10.25" y="-15.0" />
+    </edge>
+    <edge source="net.traslated.activemq.ListenersPool" target="net.traslated.operation.Protocol" relationship="TO_ONE">
+      <point x="78.0" y="7.5" />
+      <point x="293.5" y="-147.5" />
+      <point x="293.5" y="-447.5" />
+      <point x="203.5" y="-447.5" />
+      <point x="15.0" y="15.0" />
+    </edge>
+    <edge source="net.traslated.redis.RedisManagerFactory" target="net.traslated.redis.RedisManager" relationship="CREATE">
+      <point x="0.0" y="-15.0" />
+      <point x="25.75" y="15.0" />
+    </edge>
+    <edge source="net.traslated.activemq.ListenersPool" target="net.traslated.activemq.ActiveMQConnectionUtils" relationship="DEPENDENCY">
+      <point x="-14.5" y="15.0" />
+      <point x="0.0" y="-15.0" />
+    </edge>
+    <edge source="net.traslated.activemq.ListenersPool" target="net.traslated.activemq.CommandListener" relationship="CREATE">
+      <point x="15.5" y="-15.0" />
+      <point x="180.5" y="-280.0" />
+      <point x="75.5" y="-280.0" />
+      <point x="0.0" y="15.0" />
+    </edge>
+    <edge source="net.traslated.operation.Protocol" target="net.traslated.operation.Operation" relationship="DEPENDENCY">
+      <point x="44.25" y="15.0" />
+      <point x="232.75" y="-565.0" />
+      <point x="-80.0" y="0.0" />
+    </edge>
+    <edge source="net.traslated.operation.StatsForUserOperation" target="net.traslated.redis.RedisManager" relationship="TO_ONE">
+      <point x="77.0" y="15.0" />
+      <point x="-40.25" y="-15.0" />
+    </edge>
+    <edge source="net.traslated.operation.InsertOperation" target="net.traslated.redis.RedisManager" relationship="TO_ONE">
+      <point x="0.0" y="15.0" />
+      <point x="433.0" y="-132.5" />
+      <point x="725.5" y="-132.5" />
+      <point x="-55.25" y="-15.0" />
+    </edge>
+    <edge source="net.traslated.operation.QueryOperation" target="net.traslated.operation.Operation" relationship="REALIZATION">
+      <point x="-58.0" y="-15.0" />
+      <point x="1082.0" y="-475.0" />
+      <point x="411.5" y="-475.0" />
+      <point x="411.5" y="-485.0" />
+      <point x="831.0833333333333" y="-485.0" />
+      <point x="53.333333333333314" y="15.0" />
+    </edge>
+    <edge source="net.traslated.operation.StatsForUrlOperation" target="net.traslated.operation.Operation" relationship="REALIZATION">
+      <point x="-71.66666666666666" y="-15.0" />
+      <point x="843.8333333333334" y="-475.0" />
+      <point x="411.5" y="-475.0" />
+      <point x="411.5" y="-485.0" />
+      <point x="831.0833333333333" y="-485.0" />
+      <point x="53.333333333333314" y="15.0" />
+    </edge>
+    <edge source="net.traslated.operation.InsertOperation" target="net.traslated.util.GenerateShortUrlId" relationship="DEPENDENCY">
+      <point x="-15.0" y="15.0" />
+      <point x="-9.75" y="-15.0" />
+    </edge>
+    <edge source="net.traslated.activemq.CommandListener" target="net.traslated.operation.Protocol" relationship="TO_ONE">
+      <point x="88.0" y="-15.0" />
+      <point x="-25.0" y="15.0" />
+    </edge>
+    <edge source="net.traslated.operation.Protocol" target="net.traslated.operation.Operation" relationship="TO_MANY">
+      <point x="58.5" y="0.0" />
+      <point x="777.75" y="-570.0" />
+      <point x="0.0" y="-15.0" />
+    </edge>
+    <edge source="net.traslated.activemq.ListenersPool" target="net.traslated.operation.Protocol" relationship="DEPENDENCY">
+      <point x="-78.0" y="0.0" />
+      <point x="-37.5" y="-155.0" />
+      <point x="-37.5" y="-570.0" />
+      <point x="-58.5" y="0.0" />
+    </edge>
+    <edge source="net.traslated.operation.StatsForUrlOperation" target="net.traslated.redis.RedisManager" relationship="TO_ONE">
+      <point x="-84.75" y="15.0" />
+      <point x="50.0" y="-15.0" />
+    </edge>
+    <edge source="net.traslated.operation.QueryOperation" target="net.traslated.redis.RedisManager" relationship="DEPENDENCY">
+      <point x="30.0" y="15.0" />
+      <point x="1170.0" y="-40.0" />
+      <point x="80.5" y="0.0" />
+    </edge>
+    <edge source="net.traslated.operation.StatsForUserOperation" target="net.traslated.operation.Operation" relationship="REALIZATION">
+      <point x="-76.33333333333334" y="-15.0" />
+      <point x="587.1666666666666" y="-475.0" />
+      <point x="411.5" y="-475.0" />
+      <point x="411.5" y="-485.0" />
+      <point x="831.0833333333333" y="-485.0" />
+      <point x="53.333333333333314" y="15.0" />
+    </edge>
+    <edge source="net.traslated.operation.StatsForUrlOperation" target="net.traslated.redis.RedisManager" relationship="DEPENDENCY">
+      <point x="-100.0" y="15.0" />
+      <point x="34.75" y="-15.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="0.9540856031128405" showDependencies="true" x="594.5" y="-223.0" />
+  <SelectedNodes />
+  <Categories />
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

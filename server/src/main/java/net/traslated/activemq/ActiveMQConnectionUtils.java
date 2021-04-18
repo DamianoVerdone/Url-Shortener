@@ -1,12 +1,9 @@
 package net.traslated.activemq;
 
-import net.traslated.operation.InsertOperation;
 import net.traslated.util.ConfigDto;
 import org.apache.activemq.ActiveMQConnectionFactory;
 import org.apache.activemq.ActiveMQPrefetchPolicy;
 import org.apache.activemq.pool.PooledConnectionFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.jms.Connection;
 import javax.jms.JMSException;

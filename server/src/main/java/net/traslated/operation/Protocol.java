@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  */
 public class Protocol {
 
-    private  Map<CommandType,  Operation<Command>> dispatcher;
+    private  Map<CommandType, Operation<Command>> dispatcher;
 
     @SuppressWarnings("unchecked")
     public Protocol(List<Operation> operations) {

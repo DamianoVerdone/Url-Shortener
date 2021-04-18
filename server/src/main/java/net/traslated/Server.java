@@ -8,17 +8,16 @@ import net.traslated.redis.RedisManagerFactory;
 import net.traslated.util.ConfigDto;
 import redis.clients.jedis.JedisPoolConfig;
 
-import javax.jms.Connection;
-import java.io.*;
+import javax.jms.JMSException;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
-import java.util.stream.Stream;
 
 public class Server {
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args)  {
         String env = "";
         if (args.length > 0)
             env = "-" + args[0];
@@ -36,18 +35,21 @@ public class Server {
             System.out.println("Use `echo -n X | nc localhost " + config.getShutdownPort() + "` to stop");
             waitForShutDownCommand(config.getShutdownPort());
             listenersPool.shutdown();
+        } catch (JMSException | IOException | InterruptedException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(-1);
         }
-
     }
 
 
     private static RedisManager initRedisManager(ConfigDto config) {
         JedisPoolConfig jedisPoolConfig = new JedisPoolConfig(); //fixme add proper configuration
         return RedisManagerFactory.createManager(config.getRedisHost(), config.getRedisPort(), jedisPoolConfig);
-
     }
 
-    public static void waitForShutDownCommand(int port) throws ClassNotFoundException, IOException {
+    public static void waitForShutDownCommand(int port) throws IOException {
         try (ServerSocket server = new ServerSocket(port)) {
             while (true) {
                 Socket socket = server.accept();
@@ -58,7 +60,6 @@ public class Server {
                 if (message.equalsIgnoreCase("X")) break;
             }
             System.out.println("Shutting down server!!");
-
         }
     }
 

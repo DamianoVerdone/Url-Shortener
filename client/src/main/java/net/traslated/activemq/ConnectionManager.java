@@ -10,7 +10,7 @@ import javax.jms.JMSException;
 import javax.jms.Session;
 import java.io.Closeable;
 
-public class ConnectionManager implements Closeable {
+public class ConnectionManager {
 
     private static final Logger LOG = LoggerFactory.getLogger(ConnectionManager.class);
     private final Connection connection;

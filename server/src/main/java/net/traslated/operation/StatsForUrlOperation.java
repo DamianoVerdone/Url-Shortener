@@ -7,7 +7,9 @@ import net.traslated.util.Constants;
 
 import java.util.Optional;
 
-
+/**
+ * Takes the short url and return the number of accesses
+ */
 public class StatsForUrlOperation implements Operation<StatsForUrlCommand>{
 
     private final RedisManager redisManager;

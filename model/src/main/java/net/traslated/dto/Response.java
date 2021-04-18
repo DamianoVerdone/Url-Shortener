@@ -8,10 +8,10 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.As.PROPERTY;
 import static com.fasterxml.jackson.annotation.JsonTypeInfo.Id.NAME;
 
-@JsonTypeInfo(use = NAME, include = PROPERTY)
+@JsonTypeInfo(use = NAME, include = PROPERTY, property = "type")
 @JsonSubTypes({
-        @JsonSubTypes.Type( value = InsertCommand.class, name = "SUCCESS" ),
-        @JsonSubTypes.Type( value = QueryCommand.class, name = "ERROR" )
+        @JsonSubTypes.Type( value = SuccessfulResponse.class ),
+        @JsonSubTypes.Type( value = ErrorResponse.class)
 })
 public  abstract class Response {
     private Command command;

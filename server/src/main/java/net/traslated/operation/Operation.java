@@ -7,6 +7,10 @@ import net.traslated.dto.Response;
 
 import java.util.function.Function;
 
+/**
+ * Operate on a specific Command
+ * @param <T>
+ */
 public interface Operation<T extends Command> extends Function<T, Response> {
 
     CommandType handle();

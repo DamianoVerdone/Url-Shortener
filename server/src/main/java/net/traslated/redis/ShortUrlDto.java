@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class ShortUrlDto {
 
-    public static final String USER = "user";
+    public static final String USER = "USER";
     public static final String ACCESS_COUNTER = "ACCESS_COUNTER";
     public static final String LONG_URL = "LONG_URL";
     private final String user;
@@ -14,9 +14,9 @@ public class ShortUrlDto {
     private final String longUrl;
 
     public ShortUrlDto(InsertCommand insertCommand) {
-        this.user= insertCommand.getEmail();
+        this.user = insertCommand.getEmail();
         this.longUrl = insertCommand.getUrl();
-        this.accessNumber =0;
+        this.accessNumber = 0;
     }
 
 
@@ -36,7 +36,7 @@ public class ShortUrlDto {
 
 
     public Map<String, String> toMap() {
-        return Map.of(USER, this.user, ACCESS_COUNTER, accessNumber.toString(), LONG_URL, longUrl );
+        return Map.of(USER, this.user, ACCESS_COUNTER, accessNumber.toString(), LONG_URL, longUrl);
 
     }
 }

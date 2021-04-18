@@ -41,7 +41,6 @@ public class CommandListener implements MessageListener {
                 TextMessage txtMsg = (TextMessage) message;
                 Command command = MAPPER.readValue(txtMsg.getText(), Command.class);
                 Response response = this.protocol.executeCommand(command);
-                Thread.sleep(5000);
                 TextMessage reply = this.session.createTextMessage(MAPPER.writeValueAsString(response));
                 reply.setJMSCorrelationID(message.getJMSCorrelationID());
                 producer.send(reply);
@@ -54,8 +53,6 @@ public class CommandListener implements MessageListener {
         } catch (JMSException e) {
             //lets be optimistic no retry in this scenario
             LOG.error("ERROR - {}", e.getMessage());
-        } catch (InterruptedException e) {
-            e.printStackTrace();
         }
 
 

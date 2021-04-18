@@ -5,8 +5,6 @@ import net.traslated.redis.RedisManager;
 import net.traslated.redis.ShortUrlDto;
 import net.traslated.util.Constants;
 import net.traslated.util.GenerateShortUrlId;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.Pipeline;
 
@@ -18,8 +16,6 @@ import static net.traslated.util.Constants.*;
 
 public class InsertOperation implements Operation<InsertCommand> {
 
-    private static final Logger LOG = LoggerFactory.getLogger(InsertOperation.class);
-
     private final RedisManager redisManager;
 
     public InsertOperation(RedisManager redisManager) {
@@ -29,7 +25,7 @@ public class InsertOperation implements Operation<InsertCommand> {
     @Override
     public Response apply(InsertCommand insertCommand) {
         ShortUrlDto shortUrlDto = new ShortUrlDto(insertCommand);
-        try (Jedis conn = redisManager.getConnection()) {
+        return redisManager.submit(conn -> {
             if (checkIfLongUrlExist(insertCommand.getUrl(), conn)) {
                 return new SuccessfulResponse(insertCommand, "ALREADY PRESENT!!!");
             }
@@ -43,7 +39,7 @@ public class InsertOperation implements Operation<InsertCommand> {
             } else {
                 throw new ConcurrentModificationException("Concurrent modification error inserting : " + insertCommand);
             }
-        }
+        });
     }
 
     private Boolean checkIfLongUrlExist(String longUrl, Jedis conn) {
@@ -52,10 +48,9 @@ public class InsertOperation implements Operation<InsertCommand> {
         pipelined.watch(key);
         redis.clients.jedis.Response<List<Boolean>> res = pipelined.smismember(LONG_URL_INSERTED, longUrl);
         pipelined.sync();
-       return res.get().stream().reduce(true, (a, b)-> a && b);
+        return res.get().stream().reduce(true, (a, b) -> a && b);
 
     }
-
 
 
     private Boolean saveShortUrl(ShortUrlDto shortUrlDto, String shortUrl, Jedis connectionWithWatch) {
@@ -70,11 +65,10 @@ public class InsertOperation implements Operation<InsertCommand> {
                     jedis.del(optimisticLockKey);
                     return jedis.sadd(LONG_URL_INSERTED, shortUrlDto.getLongUrl());
                 }, connectionWithWatch);
-        return nAddedUrl!= null && nAddedUrl >0;
+        return nAddedUrl != null && nAddedUrl > 0;
     }
 
     /**
-     *
      * @return
      */
     private Long getCounterCounterFromRedis() {

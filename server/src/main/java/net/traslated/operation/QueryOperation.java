@@ -8,6 +8,11 @@ import java.util.Optional;
 
 import static net.traslated.util.Constants.SHORT_URL_INFO;
 
+/**
+ * Execute the query command.
+ * Increase the access counter and return the long url if present,
+ * an error response otherwise
+ */
 public class QueryOperation implements Operation<QueryCommand> {
 
     private final RedisManager redisManager;
@@ -22,24 +27,19 @@ public class QueryOperation implements Operation<QueryCommand> {
                 .<Response>map(s -> {
                     incrNumberAccesses(queryCommand.getShortUrl());
                     return new SuccessfulResponse(queryCommand, s);
-                })
-                .orElse(new ErrorResponse(queryCommand, "NOT FOUND!!!"));
-
+                }).orElse(new ErrorResponse(queryCommand, "NOT FOUND!!!"));
     }
-
 
     private Optional<String> getLongUrl(String shortUrl) {
         String key = String.format(SHORT_URL_INFO, shortUrl);
         return redisManager.submitOptional(
                 jedis -> Optional.ofNullable(jedis.hget(key, ShortUrlDto.LONG_URL))
         );
-
     }
 
     private void incrNumberAccesses(String shortUrl) {
         String key = String.format(SHORT_URL_INFO, shortUrl);
         redisManager.submit(jedis -> jedis.hincrBy(key, ShortUrlDto.ACCESS_COUNTER, 1));
-
     }
 
     @Override
