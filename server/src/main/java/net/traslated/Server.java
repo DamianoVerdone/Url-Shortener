@@ -1,11 +1,14 @@
 package net.traslated;
 
 import net.traslated.activemq.ActiveMQConnectionUtils;
+import net.traslated.activemq.CommandListener;
 import net.traslated.activemq.ListenersPool;
 import net.traslated.operation.*;
 import net.traslated.redis.RedisManager;
 import net.traslated.redis.RedisManagerFactory;
 import net.traslated.util.ConfigDto;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import redis.clients.jedis.JedisPoolConfig;
 
 import javax.jms.JMSException;
@@ -17,6 +20,8 @@ import java.net.Socket;
 import java.util.List;
 
 public class Server {
+    private static final Logger LOG = LoggerFactory.getLogger(Server.class);
+
     public static void main(String[] args)  {
         String env = "";
         if (args.length > 0)
@@ -34,9 +39,8 @@ public class Server {
             System.out.println("Server started.");
             System.out.println("Use `echo -n X | nc localhost " + config.getShutdownPort() + "` to stop");
             waitForShutDownCommand(config.getShutdownPort());
-            listenersPool.shutdown();
-        } catch (JMSException | IOException | InterruptedException e) {
-            e.printStackTrace();
+        } catch (JMSException | IOException e) {
+            LOG.error("SERVER ERROR {}", e.getMessage());
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(-1);

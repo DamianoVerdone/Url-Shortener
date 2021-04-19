@@ -24,6 +24,10 @@ Before to execute the docker compose command, build the jar package (`./gradlew 
 
 `docker-compose up`
 
+When the server is up it is possible interact with him using the client ot running the integration test.
+
+`./gradlew integrationTest`
+
 ### Shutdown
 The server is using a server socket to receive the shutdown command 'X'
 

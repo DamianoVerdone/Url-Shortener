@@ -1,9 +1,7 @@
 package net.traslated;
 
-import net.traslated.configuration.ConfigDto;
-import net.traslated.activemq.ConnectionManager;
-import net.traslated.activemq.Consumer;
 import net.traslated.activemq.Producer;
+import net.traslated.configuration.ConfigDto;
 import net.traslated.dto.InsertCommand;
 import net.traslated.dto.QueryCommand;
 import net.traslated.dto.StatsForUrlCommand;
@@ -12,11 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.jms.JMSException;
-import javax.jms.Session;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.UUID;
 
 public class Main {
     private static final Logger LOG = LoggerFactory.getLogger(Main.class);
