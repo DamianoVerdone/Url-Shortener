@@ -8,7 +8,6 @@ import javax.jms.Connection;
 import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.Session;
-import java.io.Closeable;
 
 public class ConnectionManager {
 

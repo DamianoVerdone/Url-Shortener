@@ -3,11 +3,13 @@ package net.traslated.dto;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.Email;
 import java.util.StringJoiner;
 
 public class StatsForUserCommand extends Command{
-
+    @Email
     private final String user;
+
     @JsonCreator
     public StatsForUserCommand(@JsonProperty("user") String user) {
         this.user = user;

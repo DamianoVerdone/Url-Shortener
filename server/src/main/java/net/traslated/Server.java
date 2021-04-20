@@ -35,7 +35,8 @@ public class Server {
                     new QueryOperation(redisManager),
                     new StatsForUrlOperation(redisManager),
                     new StatsForUserOperation(redisManager)));
-            final ListenersPool listenersPool = new ListenersPool(activeMQConnectionUtils, protocol, config);
+            final ListenersPool listenersPool = new ListenersPool(protocol, config);
+            listenersPool.start(activeMQConnectionUtils);
             System.out.println("Server started.");
             System.out.println("Use `echo -n X | nc localhost " + config.getShutdownPort() + "` to stop");
             waitForShutDownCommand(config.getShutdownPort());

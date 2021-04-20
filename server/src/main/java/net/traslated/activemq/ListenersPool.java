@@ -24,7 +24,7 @@ public class ListenersPool {
     private final ConfigDto config;
     private final List<CommandListener> listeners;
 
-    public ListenersPool(ActiveMQConnectionUtils activeMQConnectionUtils,
+    public ListenersPool(
                          Protocol protocol,
                          ConfigDto config) throws JMSException {
         this.config = config;
@@ -32,16 +32,20 @@ public class ListenersPool {
         this.listeners = new ArrayList<>(config.getConnectionNumber() * config.getThreadForConnection());
 
 
+
+
+    }
+
+    public void start(ActiveMQConnectionUtils activeMQConnectionUtils) throws JMSException {
         for (int i = config.getConnectionNumber(); i > 0; i--) {
-           // shared connection among every session
+            // shared connection among every session
             Connection connection = activeMQConnectionUtils.getConnection();
-           listeners.addAll(Stream.generate(() -> initActiveMQ(connection))
+            listeners.addAll(Stream.generate(() -> initActiveMQ(connection))
                     .limit(config.getThreadForConnection())
                     .collect(Collectors.toList()));
             connection.start();
 
         }
-
     }
 
     /**

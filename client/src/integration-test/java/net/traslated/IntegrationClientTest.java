@@ -2,28 +2,20 @@ package net.traslated;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import net.traslated.activemq.ConnectionManager;
 import net.traslated.activemq.Producer;
 import net.traslated.configuration.ConfigDto;
 import net.traslated.dto.*;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.Timeout;
 
 import javax.jms.JMSException;
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
 import java.util.UUID;
 import java.util.concurrent.BlockingDeque;
-import java.util.concurrent.ConcurrentLinkedDeque;
 import java.util.concurrent.LinkedBlockingDeque;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.Condition;
-import java.util.concurrent.locks.Lock;
-import java.util.concurrent.locks.ReentrantLock;
 import java.util.function.Consumer;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class IntegrationClientTest {
     private static ObjectMapper MAPPER = new ObjectMapper();
@@ -39,8 +31,8 @@ class IntegrationClientTest {
         final Client client = new Client(new ConfigDto(ACTIVEMQ_URL,
                 "RESPONSE.TOPIC", "REQUEST.QUEUE"), collectResult);
 
-        String url = UUID.randomUUID() + ".com";
-        String user = UUID.randomUUID().toString();
+        String url = "http://" + UUID.randomUUID() + ".com";
+        String user = UUID.randomUUID().toString() + "@emai.com";
         final Producer producer = client.getProducer();
         producer.sendCommand(new InsertCommand(url, user));
         producer.sendCommand(new InsertCommand(url, user));
@@ -76,7 +68,7 @@ class IntegrationClientTest {
         final Client client = new Client(new ConfigDto(ACTIVEMQ_URL,
                 "RESPONSE.TOPIC", "REQUEST.QUEUE"), collectResult);
         final Producer producer = client.getProducer();
-        String url = UUID.randomUUID() + ".com";
+        String url = "http://" + UUID.randomUUID() + ".com";
         producer.sendCommand(new InsertCommand(url, "thisIsMyEmail@email.com"));
         SuccessfulResponse insertResponse = (SuccessfulResponse) collectResult.responses.poll(2, TimeUnit.SECONDS);
         final String shortUrl = insertResponse.getResponse();
