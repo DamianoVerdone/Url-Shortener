@@ -1,3 +1,14 @@
+plugins {
+    id("com.gradle.enterprise") version "3.15"
+}
+
+gradleEnterprise {
+    buildScan {
+        publishAlways()
+        tag("backend-engineer")
+    }
+}
+
 rootProject.name = 'UrlShortner'
 include  'client'
 include  'server'
